@@ -12,7 +12,13 @@ exports.getCourse = async (req, res) => {
 
 exports.createCourse = async (req, res) => {
   try {
-    const newCourse = await Course.create(req.body);
+    const userId = req.user.id;
+    const newCourse = await Course.create({
+      id_coach: userId,
+      start_date: req.body.start_date,
+      end_date: req.body.end_date,
+      description: req.body.description
+    });
     res.json({ newCourse });
   } catch (error) {
     res.json(error);

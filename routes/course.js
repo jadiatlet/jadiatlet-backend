@@ -2,14 +2,15 @@ const express = require("express");
 const router = express.Router();
 
 const CourseController = require("../controllers/CourseController");
+const isAuthenticated = require("../middlewares").isAuthenticated;
 
 router
   .route("/")
   .get(CourseController.getCourse)
-  .post(CourseController.createCourse);
+  .post(isAuthenticated, CourseController.createCourse);
 
 router
   .route("/schedule")
-  .get(CourseController.getSchedule)
+  .get(isAuthenticated, CourseController.getSchedule)
   .post(CourseController.createSchedule);
 module.exports = router;

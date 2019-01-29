@@ -17,7 +17,7 @@ exports.isAuthenticated = async (req, res, next) => {
       return res.json("User NOT found !");
     }
 
-    req.decoded = decoded;
+    req.user = user;
     next();
   } catch (error) {
     res.json(error);

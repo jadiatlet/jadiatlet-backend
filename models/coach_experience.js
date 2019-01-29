@@ -3,10 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const coach_experience = sequelize.define(
     "coach_experience",
     {
-      title: { type: DataTypes.STRING, allowNull: false },
-      start_date: { type: DataTypes.DATE, allowNull: false },
-      end_date: { type: DataTypes.DATE, allowNull: false },
-      id_coach: { type: DataTypes.INTEGER, allowNull: false }
+      title: {type: DataTypes.STRING, allowNull: true, defaultValue: null },
+      start_date: {type: DataTypes.DATE, allowNull: true, defaultValue: null },
+      end_date: {type: DataTypes.DATE, allowNull: true, defaultValue: null },
+      id_coach: {type: DataTypes.INTEGER, allowNull: true, defaultValue: null }
     },
     {}
   );

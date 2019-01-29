@@ -11,6 +11,15 @@ exports.getUser = async (req, res) => {
     .catch(err => res.json(err));
 };
 
+exports.getUserById = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.json({ user });
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 exports.signupUser = async (req, res) => {
   try {
     const SALT_WORK_FACTOR = 5;

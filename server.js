@@ -8,6 +8,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/v1/users", require("./routes/users"));
+app.use("/api/v1/course", require("./routes/course"))
 
 // models.sequelize.sync().then(() => {
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));

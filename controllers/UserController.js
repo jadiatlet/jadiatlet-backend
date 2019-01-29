@@ -11,7 +11,7 @@ exports.getUser = async (req, res) => {
     .catch(err => res.json(err));
 };
 
-exports.createUser = async (req, res) => {
+exports.signupUser = async (req, res) => {
   try {
     const SALT_WORK_FACTOR = 5;
     const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
@@ -94,7 +94,7 @@ exports.loginUser = async (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, email: user.email, role: user.user_type },
-      "jadiatlet",
+      process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
     res.json({ message: "You're logged in", name: user.first_name, token });

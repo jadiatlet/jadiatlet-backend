@@ -5,12 +5,19 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: { type: DataTypes.STRING, allowNull: false },
       years: { type: DataTypes.DATE, allowNull: false },
-      id_coach: { type: DataTypes.INTEGER, allowNull: false }
+      id_coach: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        reference: { model: "users", key: "id" }
+      }
     },
     {}
   );
   coach_achievement.associate = function(models) {
-    // associations can be defined here
+      models.coach_achievement.hasOne(models.users, {
+        foreignKey: "id_coach",
+        targetKey: "id"
+      })
   };
   return coach_achievement;
 };

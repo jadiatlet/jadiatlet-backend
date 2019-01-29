@@ -13,4 +13,6 @@ router
   .delete(UserController.deleteUserById)
   .put(UserController.updateUserById);
 
+router.post("/login", UserController.loginUser)
+
 module.exports = router;

@@ -2,6 +2,9 @@ const User = require("../models").users;
 const coachAchievement = require("../models").coach_achievement;
 const coachExperience = require("../models").coach_experience;
 
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 exports.getUser = async (req, res) => {
   User.findAll()
     .then(users => res.json({ users }))
@@ -10,6 +13,11 @@ exports.getUser = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
+    const SALT_WORK_FACTOR = 5;
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+
+    req.body.password = await bcrypt.hash(req.body.password, salt);
+
     const user = await User.create({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
@@ -48,7 +56,7 @@ exports.deleteUserById = async (req, res) => {
 
 exports.updateUserById = async (req, res) => {
   try {
-   const update = await User.update(
+    await User.update(
       {
         first_name: req.body.first_name,
         last_name: req.body.last_name,
@@ -62,6 +70,34 @@ exports.updateUserById = async (req, res) => {
     );
     const user = await User.findById(req.params.id);
     res.json({ user });
+  } catch (error) {
+    res.json(error);
+  }
+};
+
+exports.loginUser = async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { email: req.body.email } });
+
+    if (user === null) {
+      return res.json("Email NOT Found!");
+    }
+
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+
+    if (!validPassword) {
+      return res.json(`Password NOT Valid ! ${validPassword}`);
+    }
+
+    const token = jwt.sign(
+      { id: user.id, email: user.email, role: user.user_type },
+      "jadiatlet",
+      { expiresIn: "7d" }
+    );
+    res.json({ message: "You're logged in", name: user.first_name, token });
   } catch (error) {
     res.json(error);
   }

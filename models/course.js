@@ -11,7 +11,19 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   course.associate = function(models) {
-    // associations can be defined here
+    models.course.hasMany(models.course_schedule, {
+      foreignKey: "id_course",
+      sourceKey: "id"
+    });
+    models.course.hasMany(models.user_course, {
+      foreignKey: "id_course",
+      sourceKey: "id"
+    });
+    models.course.belongsTo(models.user, {
+      onDelete: "CASCADE",
+      foreignKey: "id_coach",
+      targetKey: "id"
+    });
   };
   return course;
 };

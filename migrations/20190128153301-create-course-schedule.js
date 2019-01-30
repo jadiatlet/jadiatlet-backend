@@ -8,10 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_course: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
       day: {
         type: Sequelize.DATE,
         allowNull: false
@@ -35,6 +31,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      id_course: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        allowNull: false,
+        references: {
+          model: "courses",
+          key: "id"
+        }
       }
     });
   },

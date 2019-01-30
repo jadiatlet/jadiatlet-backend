@@ -1,20 +1,12 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('user_courses', {
+    return queryInterface.createTable("user_courses", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
-      },
-      id_user: {
-        type: Sequelize.INTEGER,
-        allowNull:false
-      },
-      id_course: {
-        type: Sequelize.INTEGER,
-        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -23,6 +15,24 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      id_user: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id"
+        }
+      },
+      id_course: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        allowNull: false,
+        references: {
+          model: "courses",
+          key: "id"
+        }
       }
     });
   },

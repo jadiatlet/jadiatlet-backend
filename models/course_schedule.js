@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
   const course_schedule = sequelize.define(
     "course_schedule",
     {
-      id_course: { type: DataTypes.INTEGER, allowNull: false },
       day: { type: DataTypes.DATE, allowNull: false },
       start_hour: { type: DataTypes.DATE, allowNull: false },
       end_hour: { type: DataTypes.DATE, allowNull: false },
@@ -12,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   course_schedule.associate = function(models) {
-    // associations can be defined here
+    models.course_schedule.belongsTo(models.course, {
+      onDelete: "CASCADE",
+      foreignKey: "id_course",
+      targetKey: "id"
+    });
   };
   return course_schedule;
 };

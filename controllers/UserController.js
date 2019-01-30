@@ -17,33 +17,6 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-exports.createAchievement = async (req, res) => {
-  try {
-    const newAchievement = await coachAchievement.create({
-      title: req.body.title,
-      years: req.body.years,
-      id_coach: req.params.id
-    });
-
-    res.status(200).json({ newAchievement });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
-exports.getAchievement = async (req, res) => {
-  try {
-    const achievement = await coachAchievement.findAll(
-      { where: { id_coach: req.params.id } },
-      { include: [User] }
-    );
-
-    res.status(200).json({ achievement });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
 exports.deleteUserById = async (req, res) => {
   try {
     await User.destroy({ where: { id: req.params.id } });
@@ -74,11 +47,38 @@ exports.updateUserById = async (req, res) => {
   }
 };
 
+exports.getAchievement = async (req, res) => {
+  try {
+    const achievement = await coachAchievement.findAll(
+      { where: { id_coach: req.params.id } },
+      { include: [User] }
+    );
+
+    res.status(200).json({ achievement });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+exports.createAchievement = async (req, res) => {
+  try {
+    const newAchievement = await coachAchievement.create({
+      title: req.body.title,
+      years: req.body.years,
+      id_coach: parseInt(req.params.id)
+    });
+
+    res.status(200).json({ newAchievement });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 exports.createExperience = async (req, res) => {
   try {
     const experience = await coachExperience.create({
       ...req.body,
-      id_coach: req.params.id
+      id_coach: parseInt(req.params.id)
     });
 
     res.status(200).json({ experience });
@@ -97,5 +97,29 @@ exports.getExperience = async (req, res) => {
     res.status(200).json({ experience });
   } catch (error) {
     res.statu(500).json(error);
+  }
+};
+
+exports.updateExperienceByUserId = async (req, res) => {
+  try {
+    const updateExperience = req.body;
+    const filter = {
+      where: {
+        id: req.params.experience_id
+      },
+      include: [{ model: User }]
+    };
+
+    coachAchievement.findOne(filter).then(update => {
+      if (update) {
+        return update.User.updateAttributes(updateExperience).then((result) =>{
+          return result
+        })
+      } else { 
+        return res.status(500)
+      }
+    });
+  } catch (error) {
+    res.json(error);
   }
 };

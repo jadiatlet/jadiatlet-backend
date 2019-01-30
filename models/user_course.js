@@ -9,7 +9,16 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   user_course.associate = function(models) {
-    // associations can be defined here
+    models.user_course.belongsTo(models.user, {
+      onDelete: "CASCADE",
+      foreignKey: "id_user",
+      targetKey: "id"
+    });
+    models.user_course.belongsTo(models.course, {
+      onDelete: "CASCADE",
+      foreignKey: "id_course",
+      targetKey: "id"
+    });
   };
   return user_course;
 };

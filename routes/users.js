@@ -22,4 +22,9 @@ router
   .post(UserController.createExperience)
   .get(UserController.getExperience);
 
+router.put(
+  "/:id/experience/:experience_id",
+  UserController.updateExperienceByUserId
+);
+
 module.exports = router;

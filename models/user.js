@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "id_coach",
       sourceKey: "id"
     });
+    models.user.hasMany(models.course, {
+      foreignKey: "id_coach",
+      sourceKey: "id"
+    });
+    models.user.hasMany(models.user_course, {
+      foreignKey: "id_user",
+      sourceKey: "id"
+    });
   };
   return user;
 };

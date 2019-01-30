@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const UserController = require("../controllers/UserController");
-const isAuthenticated = require('../middlewares').isAuthenticated
+const isAuthenticated = require("../middlewares").isAuthenticated;
+
+router.get("/", isAuthenticated, UserController.getUser);
 
 router
   .route("/:id")
@@ -10,8 +12,9 @@ router
   .delete(UserController.deleteUserById)
   .put(UserController.updateUserById);
 
-router.get("/", isAuthenticated ,UserController.getUser);
-router.post("/login", UserController.loginUser);
-router.post("/signup", UserController.signupUser);
+router
+  .route("/:id/achievement")
+  .post(UserController.createAchievement)
+  .get(UserController.getAchievement);
 
 module.exports = router;

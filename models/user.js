@@ -1,7 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  const users = sequelize.define(
-    "users",
+  const user = sequelize.define(
+    "user",
     {
       first_name: { type: DataTypes.STRING, allowNull: false },
       last_name: { type: DataTypes.STRING, allowNull: false },
@@ -16,6 +16,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  users.associate = function(models) {};
-  return users;
+  user.associate = function(models) {
+    models.user.hasMany(models.coach_achievement, {
+      foreignKey: "id_coach",
+      sourceKey: "id"
+    });
+    models.user.hasMany(models.coach_experience, {
+      foreignKey: "id_coach",
+      sourceKey: "id"
+    });
+  };
+  return user;
 };

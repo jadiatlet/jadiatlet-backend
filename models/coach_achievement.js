@@ -3,21 +3,16 @@ module.exports = (sequelize, DataTypes) => {
   const coach_achievement = sequelize.define(
     "coach_achievement",
     {
-      title: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
-      years: { type: DataTypes.DATE, allowNull: true, defaultValue: null },
-      id_coach: {
-        type: DataTypes.INTEGER,
-        allowNull: true,
-        reference: { model: "users", key: "id" },
-        defaultValue: null
-      }
+      title: { type: DataTypes.STRING },
+      years: { type: DataTypes.DATE }
     },
     {}
   );
   coach_achievement.associate = function(models) {
-    models.coach_achievement.hasOne(models.users, {
-      foreignKey: "id",
-      targetKey: "id_coach"
+    models.coach_achievement.belongsTo(models.user, {
+      onDelete: "CASCADE",
+      foreignKey: "id_coach",
+      targetKey: "id"
     });
   };
   return coach_achievement;

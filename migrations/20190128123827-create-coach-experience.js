@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('coach_experiences', {
+    return queryInterface.createTable("coach_experiences", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -20,10 +20,6 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false
       },
-      id_coach: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -31,10 +27,19 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      id_coach: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id"
+        }
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('coach_experiences');
+    return queryInterface.dropTable("coach_experiences");
   }
 };

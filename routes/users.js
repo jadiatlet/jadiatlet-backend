@@ -17,4 +17,9 @@ router
   .post(UserController.createAchievement)
   .get(UserController.getAchievement);
 
+router
+  .route("/:id/experience")
+  .post(UserController.createExperience)
+  .get(UserController.getExperience);
+
 module.exports = router;

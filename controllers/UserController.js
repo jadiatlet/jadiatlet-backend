@@ -27,7 +27,7 @@ exports.createAchievement = async (req, res) => {
 
     res.status(200).json({ newAchievement });
   } catch (error) {
-    res.status(400).json(error);
+    res.status(500).json(error);
   }
 };
 
@@ -71,5 +71,31 @@ exports.updateUserById = async (req, res) => {
     res.json({ user });
   } catch (error) {
     res.json(error);
+  }
+};
+
+exports.createExperience = async (req, res) => {
+  try {
+    const experience = await coachExperience.create({
+      ...req.body,
+      id_coach: req.params.id
+    });
+
+    res.status(200).json({ experience });
+  } catch (error) {
+    res.statu(500).json(error);
+  }
+};
+
+exports.getExperience = async (req, res) => {
+  try {
+    const experience = await coachExperience.findAll(
+      { where: { id_coach: req.params.id } },
+      { include: [User] }
+    );
+
+    res.status(200).json({ experience });
+  } catch (error) {
+    res.statu(500).json(error);
   }
 };

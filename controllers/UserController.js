@@ -63,6 +63,18 @@ exports.getAchievement = async (req, res) => {
   }
 };
 
+exports.getAchievementById = async (req, res) => {
+  try {
+    const achievement = await coachAchievement.findAll(
+      { where: { id: req.params.achievement_id, id_coach: req.params.id } },
+      { include: [User] }
+    );
+    res.status(200).json({ achievement });
+  } catch (error) {
+    res.statu(500).json(error);
+  }
+};
+
 exports.createAchievement = async (req, res) => {
   try {
     const newAchievement = await coachAchievement.create(
@@ -75,7 +87,6 @@ exports.createAchievement = async (req, res) => {
         include: [User]
       }
     );
-
     res.status(200).json({ newAchievement });
   } catch (error) {
     res.status(500).json(error);
@@ -84,11 +95,17 @@ exports.createAchievement = async (req, res) => {
 
 exports.updateAchievementById = async (req, res) => {
   try {
-    await coachAchievement.update(req.body, {
-      where: { id: req.params.experience_id }
-    });
+    await coachAchievement.update(
+      req.body,
+      {
+        where: { id: req.params.achievement_id, id_coach: req.params.id }
+      },
+      {
+        include: [User]
+      }
+    );
     const updated = await coachAchievement.findAll({
-      where: { id: req.params.experience_id }
+      where: { id: req.params.achievement_id }
     });
     res.status(200).json({ updated });
   } catch (error) {
@@ -98,7 +115,9 @@ exports.updateAchievementById = async (req, res) => {
 
 exports.deleteAchievementById = async (req, res) => {
   try {
-    await coachAchievement.destroy({ where: { id: req.achievement.id } });
+    await coachAchievement.destroy({
+      where: { id: req.params.achievement_id, id_coach: req.params.id }
+    });
     res.status(200).json("Deleted");
   } catch (err) {
     res.status(500).json(err);
@@ -140,10 +159,22 @@ exports.getExperience = async (req, res) => {
   }
 };
 
+exports.getExperienceById = async (req, res) => {
+  try {
+    const experience = await coachExperience.findAll(
+      { where: { id: req.params.experience_id, id_coach: req.params.id } },
+      { include: [User] }
+    );
+    res.status(200).json({ experience });
+  } catch (error) {
+    res.statu(500).json(error);
+  }
+};
+
 exports.updateExperienceById = async (req, res) => {
   try {
     await coachExperience.update(req.body, {
-      where: { id: req.params.experience_id }
+      where: { id: req.params.experience_id, id_coach: req.params.id }
     });
     const updated = await coachExperience.findAll({
       where: { id: req.params.experience_id }
@@ -156,7 +187,9 @@ exports.updateExperienceById = async (req, res) => {
 
 exports.deleteExperienceById = async (req, res) => {
   try {
-    await coachExperience.destroy({ where: { id: req.experience.id } });
+    await coachExperience.destroy({
+      where: { id: req.params.experience_id, id_coach: req.params.id }
+    });
     res.status(200).json("Deleted");
   } catch (err) {
     res.status(500).json(err);

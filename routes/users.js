@@ -21,6 +21,7 @@ router
 router
   .route("/:id/achievement/:achievement_id")
   .put(UserController.updateAchievementById)
+  .get(UserController.getAchievementById)
   .delete(UserController.deleteAchievementById);
 
 router
@@ -30,6 +31,7 @@ router
 
 router
   .route("/:id/experience/:experience_id")
+  .get(UserController.getExperienceById)
   .put(UserController.updateExperienceById)
   .delete(UserController.deleteExperienceById);
 
@@ -40,7 +42,9 @@ router
 
 router
   .route("/:id/course/:course_id")
-  .delete(CourseController.deleteCourseById);
+  .delete(CourseController.deleteCourseById)
+  .get(CourseController.getCourseById)
+  .put(CourseController.updateCourseById);
 
 router
   .route("/:id/course/:course_id/schedule")

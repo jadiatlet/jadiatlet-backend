@@ -2,27 +2,28 @@ const User = require("../models").user;
 const coachAchievement = require("../models").coach_achievement;
 const coachExperience = require("../models").coach_experience;
 
+//--------------------------- CRUD for User ---------------------------
 exports.getUser = async (req, res) => {
   User.findAll()
-    .then(users => res.json({ users }))
-    .catch(err => res.json(err));
+    .then(users => res.status(200).json({ users }))
+    .catch(err => res.status(500).json(err));
 };
 
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
-    res.json({ user });
+    res.status(200).json({ user });
   } catch (error) {
-    res.json(error);
+    res.status(500).json(error);
   }
 };
 
 exports.deleteUserById = async (req, res) => {
   try {
     await User.destroy({ where: { id: req.params.id } });
-    res.json("Deleted");
+    res.status(200).json("Deleted");
   } catch (err) {
-    res.json(err);
+    res.status(500).json(err);
   }
 };
 
@@ -41,11 +42,13 @@ exports.updateUserById = async (req, res) => {
       { where: { id: req.params.id } }
     );
     const user = await User.findById(req.params.id);
-    res.json({ user });
+    res.status(200).json({ user });
   } catch (error) {
-    res.json(error);
+    res.status(500).json(error);
   }
 };
+
+//--------------------------- CRUD for Coach Achievement ---------------------------
 
 exports.getAchievement = async (req, res) => {
   try {
@@ -62,11 +65,16 @@ exports.getAchievement = async (req, res) => {
 
 exports.createAchievement = async (req, res) => {
   try {
-    const newAchievement = await coachAchievement.create({
-      title: req.body.title,
-      years: req.body.years,
-      id_coach: parseInt(req.params.id)
-    });
+    const newAchievement = await coachAchievement.create(
+      {
+        title: req.body.title,
+        years: req.body.years,
+        id_coach: parseInt(req.params.id)
+      },
+      {
+        include: [User]
+      }
+    );
 
     res.status(200).json({ newAchievement });
   } catch (error) {
@@ -74,12 +82,44 @@ exports.createAchievement = async (req, res) => {
   }
 };
 
+exports.updateAchievementById = async (req, res) => {
+  try {
+    await coachAchievement.update(req.body, {
+      where: { id: req.params.experience_id }
+    });
+    const updated = await coachAchievement.findAll({
+      where: { id: req.params.experience_id }
+    });
+    res.status(200).json({ updated });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+exports.deleteAchievementById = async (req, res) => {
+  try {
+    await coachAchievement.destroy({ where: { id: req.achievement.id } });
+    res.status(200).json("Deleted");
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+//--------------------------- CRUD for Coach Experience ---------------------------
+
 exports.createExperience = async (req, res) => {
   try {
-    const experience = await coachExperience.create({
-      ...req.body,
-      id_coach: parseInt(req.params.id)
-    });
+    const experience = await coachExperience.create(
+      {
+        title: req.body.title,
+        start_date: req.body.start_date,
+        end_date: req.body.end_date,
+        id_coach: parseInt(req.params.id)
+      },
+      {
+        include: [User]
+      }
+    );
 
     res.status(200).json({ experience });
   } catch (error) {
@@ -100,26 +140,25 @@ exports.getExperience = async (req, res) => {
   }
 };
 
-exports.updateExperienceByUserId = async (req, res) => {
+exports.updateExperienceById = async (req, res) => {
   try {
-    const updateExperience = req.body;
-    const filter = {
-      where: {
-        id: req.params.experience_id
-      },
-      include: [{ model: User }]
-    };
-
-    coachAchievement.findOne(filter).then(update => {
-      if (update) {
-        return update.User.updateAttributes(updateExperience).then((result) =>{
-          return result
-        })
-      } else { 
-        return res.status(500)
-      }
+    await coachExperience.update(req.body, {
+      where: { id: req.params.experience_id }
     });
+    const updated = await coachExperience.findAll({
+      where: { id: req.params.experience_id }
+    });
+    res.status(200).json({ updated });
   } catch (error) {
-    res.json(error);
+    res.status(500).json(error);
+  }
+};
+
+exports.deleteExperienceById = async (req, res) => {
+  try {
+    await coachExperience.destroy({ where: { id: req.experience.id } });
+    res.status(200).json("Deleted");
+  } catch (err) {
+    res.status(500).json(err);
   }
 };

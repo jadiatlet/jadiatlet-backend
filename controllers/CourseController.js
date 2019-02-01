@@ -76,10 +76,12 @@ exports.updateCourseById = async (req, res) => {
 
 exports.createSchedule = async (req, res) => {
   try {
+    const day = req.body.day.toLowerCase()
     const newSchedule = await Schedule.create(
       {
         ...req.body,
-        id_course: req.params.course_id
+        id_course: req.params.course_id,
+        day : day
       },
       {
         include: [Course]

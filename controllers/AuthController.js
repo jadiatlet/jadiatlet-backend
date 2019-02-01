@@ -37,6 +37,8 @@ exports.signupUser = async (req, res) => {
 
     req.body.password = await bcrypt.hash(req.body.password, salt);
 
+    const userType = req.body.user_type.toLowerCase()
+
     const user = await User.create({
       first_name: req.body.first_name,
       last_name: req.body.last_name,
@@ -45,7 +47,7 @@ exports.signupUser = async (req, res) => {
       address: req.body.address,
       city: req.body.city,
       overview: req.body.overview,
-      user_type: req.body.user_type,
+      user_type: userType,
       sport: req.body.sport,
       phone: req.body.phone
     });

@@ -33,6 +33,9 @@ module.exports = {
           model: "courses",
           key: "id"
         }
+      },
+      status : {
+        type : Sequelize.BOOLEAN
       }
     });
   },

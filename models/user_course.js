@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     "user_course",
     {
       id_user: { type: DataTypes.INTEGER, allowNull: false },
-      id_course: {type: DataTypes.INTEGER, allowNull: false}
+      id_course: {type: DataTypes.INTEGER, allowNull: false},
+      status : DataTypes.BOOLEAN
     },
     {}
   );

@@ -9,7 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       day: {
-        type: Sequelize.DATE,
+        type: Sequelize.ENUM(
+          "Senin",
+          "Selasa",
+          "Rabu",
+          "Kamis",
+          "Jumat",
+          "Sabtu ",
+          "Minggu"
+        ),
         allowNull: false
       },
       start_hour: {

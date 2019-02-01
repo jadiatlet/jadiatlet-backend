@@ -4,8 +4,10 @@ const PORT = process.env.PORT || 8000;
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const cors = require("cors");
 // const models = require('./models')
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

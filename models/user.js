@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       email: { type: DataTypes.STRING, allowNull: false , unique : true },
       password: { type: DataTypes.STRING, allowNull: false },
       address: { type: DataTypes.STRING, allowNull: true },
+      profile_picture : DataTypes.STRING,
       city: { type: DataTypes.STRING, allowNull: true },
       overview: { type: DataTypes.STRING, allowNull: true },
       user_type: { type: DataTypes.ENUM("Coach", "Student"), allowNull: false },

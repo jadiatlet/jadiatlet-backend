@@ -7,7 +7,7 @@ exports.loginUser = async (req, res) => {
     const user = await User.findOne({ where: { email: req.body.email } });
 
     if (user === null) {
-      return res.json("Email NOT Found!");
+      return res.status(400).json("Email NOT Found!");
     }
 
     const validPassword = await bcrypt.compare(
@@ -16,7 +16,7 @@ exports.loginUser = async (req, res) => {
     );
 
     if (!validPassword) {
-      return res.json(`Password NOT Valid ! ${validPassword}`);
+      return res.status(400).json(`Password NOT Valid ! ${validPassword}`);
     }
 
     const token = jwt.sign(
@@ -24,9 +24,9 @@ exports.loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    res.json({ message: "You're logged in", name: user.first_name, token });
+    res.status(200).json({ message: "You're logged in", name: user.first_name, token });
   } catch (error) {
-    res.json(error);
+    res.status(400).json(error);
   }
 };
 

@@ -24,7 +24,9 @@ exports.loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    res.status(200).json({ message: "You're logged in", name: user.first_name, token });
+    res
+      .status(200)
+      .json({ message: "You're logged in", name: user.first_name, token });
   } catch (error) {
     res.status(400).json(error);
   }
@@ -37,7 +39,7 @@ exports.signupUser = async (req, res) => {
 
     req.body.password = await bcrypt.hash(req.body.password, salt);
 
-    const userType = req.body.user_type.toLowerCase()
+    const userType = req.body.user_type.toLowerCase();
 
     const user = await User.create({
       first_name: req.body.first_name,
@@ -57,4 +59,8 @@ exports.signupUser = async (req, res) => {
     console.log(err);
     res.status(400).json(err);
   }
+};
+
+exports.verifyToken = (req, res) => {
+  res.status(200).json({ user: req.user });
 };

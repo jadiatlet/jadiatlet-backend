@@ -4,9 +4,23 @@ const coachExperience = require("../models").coach_experience;
 
 //--------------------------- CRUD for User ---------------------------
 exports.getUser = async (req, res) => {
-  User.findAll()
-    .then(users => res.status(200).json({ users }))
-    .catch(err => res.status(500).json(err));
+  if (req.query) {
+    let condition = {};
+
+    Object.keys(req.query).forEach(key =>
+      Object.assign(condition, {
+        [key]: { $like: `%${req.query[key]}%` }
+      })
+    );
+
+    User.findAll({ where: { ...condition }, include: [coachAchievement] })
+      .then(users => res.status(200).json({ users }))
+      .catch(err => res.status(500).json(err));
+  } else {
+    User.findAll()
+      .then(users => res.status(200).json({ users }))
+      .catch(err => res.status(500).json(err));
+  }
 };
 
 exports.getUserById = async (req, res) => {

@@ -5,7 +5,7 @@ const UserController = require("../controllers/UserController");
 const CourseController = require("../controllers/CourseController");
 const isAuthenticated = require("../middlewares").isAuthenticated;
 
-router.get("/", isAuthenticated, UserController.getUser);
+router.get("/", UserController.getUser);
 
 router
   .route("/:id")

@@ -54,10 +54,9 @@ Access API server by opening http://localhost:8000
 | --------------------- | ---- | ------------- | ------------------------------------------------------------- |
 | `/api/v1/auth/login`  | POST | Sign In users | `email` , `password`                                          |
 | `/api/v1/auth/signup` | POST | Sign Up users | `first_name`, `last_name` ,`email` , `password` , `user_type` |
-
+| `/api/v1/auth/verify` | GET  | Verify users  |                                                               |
 
 ### /api/v1/users
-
 
 | Endpoint            | HTTP   | Description       | Body                                                                                           |
 | ------------------- | ------ | ----------------- | ---------------------------------------------------------------------------------------------- |
@@ -66,9 +65,7 @@ Access API server by opening http://localhost:8000
 | `/api/v1/users/:id` | PUT    | Update user by id | `first_name`, `last_name` ,`address`, `city`,`overview`, `sport` , `phone` , `profile_picture` |
 | `/api/v1/users/:id` | DELETE | DELETE user by id |                                                                                                |
 
-
 ### /api/v1/users/:id/achievement
-
 
 | Endpoint                                       | HTTP   | Description               | Body                                    |
 | ---------------------------------------------- | ------ | ------------------------- | --------------------------------------- |
@@ -78,9 +75,7 @@ Access API server by opening http://localhost:8000
 | `/api/v1/users/:id/achievement/achievement_id` | PUT    | Update achievements by id | `title`, `years`                        |
 | `/api/v1/users/:id/achievement/achievement_id` | DELETE | DELETE achievements by id |                                         |
 
-
 ### /api/v1/users/:id/experience
-
 
 | Endpoint                                     | HTTP   | Description              | Body                                                     |
 | -------------------------------------------- | ------ | ------------------------ | -------------------------------------------------------- |
@@ -90,9 +85,7 @@ Access API server by opening http://localhost:8000
 | `/api/v1/users/:id/experience/experience_id` | PUT    | Update experiences by id | `title`, `start_date` , `end_date`                       |
 | `/api/v1/users/:id/experience/experience_id` | DELETE | DELETE experiences by id |                                                          |
 
-
 ### /api/v1/users/:id/course
-
 
 | Endpoint                             | HTTP   | Description              | Body                                                          |
 | ------------------------------------ | ------ | ------------------------ | ------------------------------------------------------------- |
@@ -102,9 +95,7 @@ Access API server by opening http://localhost:8000
 | `/api/v1/users/:id/course/course_id` | PUT    | Update experiences by id | `start_date` ,`end_date`,`description`                        |
 | `/api/v1/users/:id/course/course_id` | DELETE | DELETE experiences by id |                                                               |
 
-
 ### /api/v1/users/:id/schedule
-
 
 | Endpoint                                                   | HTTP   | Description           | Body                                                                  |
 | ---------------------------------------------------------- | ------ | --------------------- | --------------------------------------------------------------------- |

@@ -41,18 +41,7 @@ exports.signupUser = async (req, res) => {
 
     const userType = req.body.user_type.toLowerCase();
 
-    const user = await User.create({
-      first_name: req.body.first_name,
-      last_name: req.body.last_name,
-      email: req.body.email,
-      password: req.body.password,
-      address: req.body.address,
-      city: req.body.city,
-      overview: req.body.overview,
-      user_type: userType,
-      sport: req.body.sport,
-      phone: req.body.phone
-    });
+    const user = await User.create(req.body);
 
     res.status(200).json({ user });
   } catch (err) {

@@ -24,9 +24,7 @@ exports.loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    res
-      .status(200)
-      .json({ message: "You're logged in", name: user.first_name, token });
+    res.status(200).json({ message: "You're logged in", user, token });
   } catch (error) {
     res.status(400).json(error);
   }

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable("user_courses", {
@@ -34,12 +34,13 @@ module.exports = {
           key: "id"
         }
       },
-      status : {
-        type : Sequelize.BOOLEAN
+      status: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('user_courses');
+    return queryInterface.dropTable("user_courses");
   }
 };

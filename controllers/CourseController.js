@@ -1,6 +1,16 @@
 const User = require("../models").user;
 const Course = require("../models").course;
 const Schedule = require("../models").course_schedule;
+const UserCourse = require("../models").user_course;
+
+exports.getAllCourse = async (req, res) => {
+  try {
+    const allCourse = await Course.findAll();
+    res.status(200).json({ allCourse });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 exports.createCourse = async (req, res) => {
   try {
@@ -76,12 +86,12 @@ exports.updateCourseById = async (req, res) => {
 
 exports.createSchedule = async (req, res) => {
   try {
-    const day = req.body.day.toLowerCase()
+    const day = req.body.day.toLowerCase();
     const newSchedule = await Schedule.create(
       {
         ...req.body,
         id_course: req.params.course_id,
-        day : day
+        day
       },
       {
         include: [Course]
@@ -134,12 +144,38 @@ exports.deleteScheduleById = async (req, res) => {
 exports.updateScheduleById = async (req, res) => {
   try {
     await Schedule.update(req.body, {
-      where: {id: req.params.schedule_id, id_course: req.params.course_id }
+      where: { id: req.params.schedule_id, id_course: req.params.course_id }
     });
     const updated = await Schedule.findAll({
       where: { id: req.params.schedule_id }
     });
     res.status(200).json({ updated });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+exports.joinCourse = async (req, res) => {
+  try {
+    const userCourse = await UserCourse.create({
+      ...req.body,
+      id_user: req.user.id
+    });
+
+    res.status(200).json({ userCourse });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+exports.acceptCourse = async (req, res) => {
+  try {
+    await UserCourse.update(
+      { status: req.body.status },
+      { where: { id_user: req.user.id } }
+    );
+
+    res.status(200).json("Updated");
   } catch (error) {
     res.status(500).json(error);
   }

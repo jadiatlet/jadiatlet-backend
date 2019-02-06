@@ -1,6 +1,5 @@
 const User = require("../models").user;
 const Course = require("../models").course;
-const Schedule = require("../models").course_schedule;
 const UserCourse = require("../models").user_course;
 
 exports.getAllCourse = async (req, res) => {
@@ -17,10 +16,8 @@ exports.createCourse = async (req, res) => {
     const userId = req.params.id;
     const newCourse = await Course.create(
       {
-        id_coach: userId,
-        start_date: req.body.start_date,
-        end_date: req.body.end_date,
-        description: req.body.description
+        ...req.body,
+        id_coach: userId
       },
       {
         include: [User]
@@ -82,78 +79,7 @@ exports.updateCourseById = async (req, res) => {
   }
 };
 
-// -------------------------- Schedule --------------------------------
-
-exports.createSchedule = async (req, res) => {
-  try {
-    const day = req.body.day.toLowerCase();
-    const newSchedule = await Schedule.create(
-      {
-        ...req.body,
-        id_course: req.params.course_id,
-        day
-      },
-      {
-        include: [Course]
-      }
-    );
-    res.status(200).json({ newSchedule });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
-exports.getSchedule = async (req, res) => {
-  try {
-    const schedule = await Schedule.findAll(
-      { where: { id_course: req.params.course_id } },
-      { include: [Course] }
-    );
-    res.status(200).json({ schedule });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
-
-exports.getScheduleById = async (req, res) => {
-  try {
-    const schedule = await User.findAll(
-      {
-        where: { id: req.params.schedule_id, id_course: req.params.course_id }
-      },
-      {
-        include: [Course]
-      }
-    );
-    res.status(200).json({ schedule });
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-exports.deleteScheduleById = async (req, res) => {
-  try {
-    await Schedule.destroy({
-      where: { id: req.params.schedule_id, id_course: req.params.course_id }
-    });
-    res.status(200).json("Deleted");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-};
-
-exports.updateScheduleById = async (req, res) => {
-  try {
-    await Schedule.update(req.body, {
-      where: { id: req.params.schedule_id, id_course: req.params.course_id }
-    });
-    const updated = await Schedule.findAll({
-      where: { id: req.params.schedule_id }
-    });
-    res.status(200).json({ updated });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-};
+// -------------------------- Join and Accept --------------------------------
 
 exports.joinCourse = async (req, res) => {
   try {

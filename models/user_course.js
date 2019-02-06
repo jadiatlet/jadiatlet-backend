@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       id_user: { type: DataTypes.INTEGER, allowNull: false },
       id_course: { type: DataTypes.INTEGER, allowNull: false },
-      status: { type: DataTypes.BOOLEAN, defaultValue: false }
+      status: { type: DataTypes.ENUM('1','0'), defaultValue: '0' }
     },
     {}
   );

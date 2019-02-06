@@ -15,7 +15,7 @@ router
 
 router
   .route("/:id/achievement")
-  .post(UserController.createAchievement)
+  .post(isAuthenticated, UserController.createAchievement)
   .get(UserController.getAchievement);
 
 router
@@ -26,7 +26,7 @@ router
 
 router
   .route("/:id/experience")
-  .post(UserController.createExperience)
+  .post(isAuthenticated, UserController.createExperience)
   .get(UserController.getExperience);
 
 router

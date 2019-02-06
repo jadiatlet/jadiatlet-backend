@@ -5,6 +5,7 @@ const CourseController = require("../controllers/CourseController");
 const isAuthenticated = require("../middlewares").isAuthenticated;
 
 router.post("/join", isAuthenticated, CourseController.joinCourse);
-router.post("/accept", isAuthenticated, CourseController.acceptCourse);
+router.put("/accept", isAuthenticated, CourseController.acceptCourse);
+router.get("/getCourse", isAuthenticated, CourseController.getAllCourse)
 
 module.exports = router;

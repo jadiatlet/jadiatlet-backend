@@ -157,12 +157,17 @@ exports.updateScheduleById = async (req, res) => {
 
 exports.joinCourse = async (req, res) => {
   try {
-    const userCourse = await UserCourse.create({
-      ...req.body,
-      id_user: req.user.id
-    });
+    const role = req.user.user_type;
+    if (role === "Student") {
+      const userCourse = await UserCourse.create({
+        ...req.body,
+        id_user: req.user.id
+      });
 
-    res.status(200).json({ userCourse });
+      res.status(200).json({ userCourse });
+    } else {
+      res.status(500).json("You're NOT Student");
+    }
   } catch (error) {
     res.status(500).json(error);
   }
@@ -170,12 +175,30 @@ exports.joinCourse = async (req, res) => {
 
 exports.acceptCourse = async (req, res) => {
   try {
-    await UserCourse.update(
-      { status: req.body.status },
-      { where: { id_user: req.user.id } }
-    );
+    const role = req.user.user_type;
+    console.log(role);
 
-    res.status(200).json("Updated");
+    if (role === "Coach") {
+      await UserCourse.update(
+        { status: req.body.status },
+        { where: { id: req.body.id } }
+      );
+
+      const course = await UserCourse.findAll();
+
+      res.status(200).json({ course });
+    } else {
+      res.status(500).json("You're NOT Coach");
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+exports.getAllCourse = async (req, res) => {
+  try {
+    const course = await UserCourse.findAll();
+    res.status(200).json({ course });
   } catch (error) {
     res.status(500).json(error);
   }

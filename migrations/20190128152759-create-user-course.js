@@ -35,8 +35,8 @@ module.exports = {
         }
       },
       status: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
+        type: Sequelize.ENUM("1", "0"),
+        defaultValue: "0"
       }
     });
   },

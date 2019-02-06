@@ -13,7 +13,10 @@ exports.getUser = async (req, res) => {
       })
     );
 
-    User.findAll({ where: { ...condition }, include: [coachAchievement] })
+    User.findAll({
+      where: { ...condition },
+      include: [coachAchievement, coachExperience]
+    })
       .then(users => res.status(200).json({ users }))
       .catch(err => res.status(500).json(err));
   } else {
@@ -43,18 +46,7 @@ exports.deleteUserById = async (req, res) => {
 
 exports.updateUserById = async (req, res) => {
   try {
-    await User.update(
-      {
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        address: req.body.address,
-        city: req.body.city,
-        overview: req.body.address,
-        sport: req.body.sport,
-        phone: req.body.phone
-      },
-      { where: { id: req.params.id } }
-    );
+    await User.update(req.body, { where: { id: req.params.id } });
     const user = await User.findById(req.params.id);
     res.status(200).json({ user });
   } catch (error) {
@@ -91,17 +83,26 @@ exports.getAchievementById = async (req, res) => {
 
 exports.createAchievement = async (req, res) => {
   try {
-    const newAchievement = await coachAchievement.create(
-      {
-        title: req.body.title,
-        years: req.body.years,
-        id_coach: parseInt(req.params.id)
-      },
-      {
-        include: [User]
-      }
-    );
-    res.status(200).json({ newAchievement });
+    const role = req.user.user_type;    
+
+    console.log(role);
+    
+
+    if (role === "Coach") {
+      const newAchievement = await coachAchievement.create(
+        {
+          title: req.body.title,
+          years: req.body.years,
+          id_coach: parseInt(req.params.id)
+        },
+        {
+          include: [User]
+        }
+      );
+      res.status(200).json({ newAchievement });
+    } else {
+      res.status(200).json("You're NOT Coach");
+    }
   } catch (error) {
     res.status(500).json(error);
   }
@@ -142,19 +143,24 @@ exports.deleteAchievementById = async (req, res) => {
 
 exports.createExperience = async (req, res) => {
   try {
-    const experience = await coachExperience.create(
-      {
-        title: req.body.title,
-        start_date: req.body.start_date,
-        end_date: req.body.end_date,
-        id_coach: parseInt(req.params.id)
-      },
-      {
-        include: [User]
-      }
-    );
+    const role = req.user.user_type;
+    if (role === "Coach") {
+      const experience = await coachExperience.create(
+        {
+          title: req.body.title,
+          start_date: req.body.start_date,
+          end_date: req.body.end_date,
+          id_coach: parseInt(req.params.id)
+        },
+        {
+          include: [User]
+        }
+      );
 
-    res.status(200).json({ experience });
+      res.status(200).json({ experience });
+    } else {
+      res.status(200).json("You're NOT Coach");
+    }
   } catch (error) {
     res.statu(500).json(error);
   }

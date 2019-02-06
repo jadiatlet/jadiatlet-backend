@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       overview: { type: DataTypes.STRING, allowNull: true },
       user_type: { type: DataTypes.ENUM("Coach", "Student"), allowNull: false },
       sport: { type: DataTypes.STRING, allowNull: true },
-      phone: { type: DataTypes.STRING, allowNull: true }
+      phone: { type: DataTypes.STRING, allowNull: true , unique : true }
     },
     {}
   );

@@ -20,6 +20,25 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true
       },
+      price : {
+        type : Sequelize.DOUBLE
+      },
+      day: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      start_hour: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      end_hour: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      venue: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

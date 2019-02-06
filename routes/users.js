@@ -46,15 +46,4 @@ router
   .get(CourseController.getCourseById)
   .put(CourseController.updateCourseById);
 
-router
-  .route("/:id/course/:course_id/schedule")
-  .post(CourseController.createSchedule)
-  .get(CourseController.getSchedule);
-
-router
-  .route("/:id/course/:course_id/schedule/:schedule_id")
-  .delete(CourseController.deleteScheduleById)
-  .get(CourseController.getScheduleById)
-  .put(CourseController.updateScheduleById);
-
 module.exports = router;

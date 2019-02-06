@@ -4,17 +4,17 @@ module.exports = (sequelize, DataTypes) => {
     "course",
     {
       id_coach: { type: DataTypes.INTEGER, allowNull: false },
-      start_date: {type: DataTypes.DATE, allowNull: false},
-      end_date: {type: DataTypes.DATE, allowNull: false},
-      description: {type:DataTypes.TEXT, allowNull: true}
+      start_date: { type: DataTypes.DATE, allowNull: false },
+      end_date: { type: DataTypes.DATE, allowNull: false },
+      description: { type: DataTypes.TEXT, allowNull: true },
+      day: {type: DataTypes.STRING, allowNull: false },
+      start_hour: { type: DataTypes.STRING, allowNull: false },
+      end_hour: { type: DataTypes.STRING, allowNull: false },
+      venue: { type: DataTypes.STRING, allowNull: false }
     },
     {}
   );
   course.associate = function(models) {
-    models.course.hasMany(models.course_schedule, {
-      foreignKey: "id_course",
-      sourceKey: "id"
-    });
     models.course.hasMany(models.user_course, {
       foreignKey: "id_course",
       sourceKey: "id"

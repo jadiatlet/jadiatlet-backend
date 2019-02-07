@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       day: {type: DataTypes.STRING, allowNull: false },
       start_hour: { type: DataTypes.STRING, allowNull: false },
       end_hour: { type: DataTypes.STRING, allowNull: false },
-      venue: { type: DataTypes.STRING, allowNull: false }
+      venue: { type: DataTypes.STRING, allowNull: false },
+      price : DataTypes.DOUBLE
     },
     {}
   );

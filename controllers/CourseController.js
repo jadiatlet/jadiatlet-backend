@@ -4,7 +4,14 @@ const UserCourse = require("../models").user_course;
 
 exports.getAllCourse = async (req, res) => {
   try {
-    const allCourse = await Course.findAll();
+    const allCourse = await Course.findAll({
+      include: [
+        {
+          model: UserCourse,
+          include: [User]
+        }
+      ]
+    });
     res.status(200).json({ allCourse });
   } catch (error) {
     res.status(500).json(error);
@@ -121,12 +128,10 @@ exports.acceptCourse = async (req, res) => {
   }
 };
 
-exports.getAllCourse = async (req, res) => {
+exports.getUserCourse = async (req, res) => {
   try {
-    const course = await UserCourse.findAll({
-      include: [{ model: Course, include: [User] }]
-    });
-    res.status(200).json({ course });
+    const userCourse = await UserCourse.findAll();
+    res.status(200).json({ userCourse });
   } catch (error) {
     res.status(500).json(error);
   }

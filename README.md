@@ -67,38 +67,38 @@ Access API server by opening http://localhost:8000
 
 ### /api/v1/users/:id/achievement
 
-| Endpoint                                       | HTTP   | Description               | Body                                    |
-| ---------------------------------------------- | ------ | ------------------------- | --------------------------------------- |
-| `/api/v1/users/:id/achievement`                | GET    | Get all achievements      | -                                       |
-| `/api/v1/users/:id/achievement`                | POST   | Create achievements       | `title`, `years` ,`id_coach(params:id)` |
+| Endpoint                                        | HTTP   | Description               | Body                                    |
+| ----------------------------------------------- | ------ | ------------------------- | --------------------------------------- |
+| `/api/v1/users/:id/achievement`                 | GET    | Get all achievements      | -                                       |
+| `/api/v1/users/:id/achievement`                 | POST   | Create achievements       | `title`, `years` ,`id_coach(params:id)` |
 | `/api/v1/users/:id/achievement/:achievement_id` | GET    | Get achievements by id    | -                                       |
 | `/api/v1/users/:id/achievement/:achievement_id` | PUT    | Update achievements by id | `title`, `years`                        |
 | `/api/v1/users/:id/achievement/:achievement_id` | DELETE | DELETE achievements by id |                                         |
 
 ### /api/v1/users/:id/experience
 
-| Endpoint                                     | HTTP   | Description              | Body                                                     |
-| -------------------------------------------- | ------ | ------------------------ | -------------------------------------------------------- |
-| `/api/v1/users/:id/experience`               | GET    | Get all experiences      | -                                                        |
-| `/api/v1/users/:id/experience`               | POST   | Create experiences       | `title`, `start_date` ,`end_date` ,`id_coach(params:id)` |
+| Endpoint                                      | HTTP   | Description              | Body                                                     |
+| --------------------------------------------- | ------ | ------------------------ | -------------------------------------------------------- |
+| `/api/v1/users/:id/experience`                | GET    | Get all experiences      | -                                                        |
+| `/api/v1/users/:id/experience`                | POST   | Create experiences       | `title`, `start_date` ,`end_date` ,`id_coach(params:id)` |
 | `/api/v1/users/:id/experience/:experience_id` | GET    | Get experiences by id    | -                                                        |
 | `/api/v1/users/:id/experience/:experience_id` | PUT    | Update experiences by id | `title`, `start_date` , `end_date`                       |
 | `/api/v1/users/:id/experience/:experience_id` | DELETE | DELETE experiences by id |                                                          |
 
 ### /api/v1/users/:id/course
 
-| Endpoint                             | HTTP   | Description              | Body                                                                                                  |
-| ------------------------------------ | ------ | ------------------------ | ----------------------------------------------------------------------------------------------------- |
-| `/api/v1/users/:id/course`           | GET    | Get all experiences      | -                                                                                                     |
-| `/api/v1/users/:id/course`           | POST   | Create experiences       | `start_date` ,`end_date`,`description` ,`day`,`start_hour` ,`end_hour`,`venue` ,`id_coach(params:id)` |
+| Endpoint                              | HTTP   | Description              | Body                                                                                                  |
+| ------------------------------------- | ------ | ------------------------ | ----------------------------------------------------------------------------------------------------- |
+| `/api/v1/users/:id/course`            | GET    | Get all experiences      | -                                                                                                     |
+| `/api/v1/users/:id/course`            | POST   | Create experiences       | `start_date` ,`end_date`,`description` ,`day`,`start_hour` ,`end_hour`,`venue` ,`id_coach(params:id)` |
 | `/api/v1/users/:id/course/:course_id` | GET    | Get experiences by id    | -                                                                                                     |
 | `/api/v1/users/:id/course/:course_id` | PUT    | Update experiences by id | `start_date` ,`end_date`,`description` , `day`,`start_hour` ,`end_hour`,`venue`                       |
 | `/api/v1/users/:id/course/:course_id` | DELETE | DELETE experiences by id |                                                                                                       |
 
 ### /api/v1/courses/
 
-| Endpoint                 | HTTP | Description            | Body                                                          |
-| ------------------------ | ---- | ---------------------- | ------------------------------------------------------------- |
-| `/api/v1/courses/join`   | POST | User join a course     | `email` , `password`                                          |
-| `/api/v1/courses/accept` | POST | Coach accepting course | `first_name`, `last_name` ,`email` , `password` , `user_type` |
-| `/api/v1/courses/getALl` | GET  | Get All courses        |                                                               |
+| Endpoint                 | HTTP | Description            | Body        |
+| ------------------------ | ---- | ---------------------- | ----------- |
+| `/api/v1/courses/join`   | POST | User join a course     | `id_course` |
+| `/api/v1/courses/accept` | PUT  | Coach accepting course |             |
+| `/api/v1/courses/getALl` | GET  | Get All courses        |             |

@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     "coach_experience",
     {
       title: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
-      start_date: { type: DataTypes.DATE, allowNull: true, defaultValue: null },
-      end_date: { type: DataTypes.DATE, allowNull: true, defaultValue: null }
+      start_date: { type: DataTypes.STRING, allowNull: true, defaultValue: null },
+      end_date: { type: DataTypes.STRING, allowNull: true, defaultValue: null }
     },
     {}
   );

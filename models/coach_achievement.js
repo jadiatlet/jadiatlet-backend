@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     "coach_achievement",
     {
       title: { type: DataTypes.STRING },
-      years: { type: DataTypes.DATE }
+      years: { type: DataTypes.STRING }
     },
     {}
   );

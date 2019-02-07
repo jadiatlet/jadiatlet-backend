@@ -123,7 +123,9 @@ exports.acceptCourse = async (req, res) => {
 
 exports.getAllCourse = async (req, res) => {
   try {
-    const course = await UserCourse.findAll({ include: [Course] });
+    const course = await UserCourse.findAll({
+      include: [{ model: Course, include: [User] }]
+    });
     res.status(200).json({ course });
   } catch (error) {
     res.status(500).json(error);

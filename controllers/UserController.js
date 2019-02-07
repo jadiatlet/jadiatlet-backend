@@ -1,6 +1,8 @@
 const User = require("../models").user;
 const coachAchievement = require("../models").coach_achievement;
 const coachExperience = require("../models").coach_experience;
+const Course = require("../models").course;
+const UserCourse = require("../models").user_course;
 
 //--------------------------- CRUD for User ---------------------------
 exports.getUser = async (req, res) => {
@@ -15,7 +17,14 @@ exports.getUser = async (req, res) => {
 
     User.findAll({
       where: { ...condition },
-      include: [coachAchievement, coachExperience]
+      include: [
+        coachAchievement,
+        coachExperience,
+        {
+          model: Course,
+          include: [UserCourse]
+        }
+      ]
     })
       .then(users => res.status(200).json({ users }))
       .catch(err => res.status(500).json(err));
@@ -83,10 +92,9 @@ exports.getAchievementById = async (req, res) => {
 
 exports.createAchievement = async (req, res) => {
   try {
-    const role = req.user.user_type;    
+    const role = req.user.user_type;
 
     console.log(role);
-    
 
     if (role === "Coach") {
       const newAchievement = await coachAchievement.create(

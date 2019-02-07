@@ -94,3 +94,11 @@ Access API server by opening http://localhost:8000
 | `/api/v1/users/:id/course/:course_id` | GET    | Get experiences by id    | -                                                                                                     |
 | `/api/v1/users/:id/course/:course_id` | PUT    | Update experiences by id | `start_date` ,`end_date`,`description` , `day`,`start_hour` ,`end_hour`,`venue`                       |
 | `/api/v1/users/:id/course/:course_id` | DELETE | DELETE experiences by id |                                                                                                       |
+
+### /api/v1/courses/
+
+| Endpoint                 | HTTP | Description            | Body                                                          |
+| ------------------------ | ---- | ---------------------- | ------------------------------------------------------------- |
+| `/api/v1/courses/join`   | POST | User join a course     | `email` , `password`                                          |
+| `/api/v1/courses/accept` | POST | Coach accepting course | `first_name`, `last_name` ,`email` , `password` , `user_type` |
+| `/api/v1/courses/getALl` | GET  | Get All courses        |                                                               |

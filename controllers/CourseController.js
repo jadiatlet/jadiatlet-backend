@@ -130,7 +130,11 @@ exports.acceptCourse = async (req, res) => {
 
 exports.getUserCourse = async (req, res) => {
   try {
-    const userCourse = await UserCourse.findAll();
+    const id_user = parseInt(req.params.id_user)
+    const userCourse = await UserCourse.findAll({
+      where : {id_user : id_user},
+      include : [{model: Course, include: [User]}, User]
+    })
     res.status(200).json({ userCourse });
   } catch (error) {
     res.status(500).json(error);

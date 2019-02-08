@@ -97,8 +97,10 @@ Access API server by opening http://localhost:8000
 
 ### /api/v1/courses/
 
-| Endpoint                 | HTTP | Description            | Body        |
-| ------------------------ | ---- | ---------------------- | ----------- |
-| `/api/v1/courses/join`   | POST | User join a course     | `id_course` |
-| `/api/v1/courses/accept` | PUT  | Coach accepting course |             |
-| `/api/v1/courses/getALl` | GET  | Get All courses        |             |
+| Endpoint                        | HTTP | Description            | Body        |
+| ------------------------------- | ---- | ---------------------- | ----------- |
+| `/api/v1/courses/join`          | POST | User join a course     | `id_course` |
+| `/api/v1/courses/accept`        | PUT  | Coach accepting course |             |
+| `/api/v1/courses/getAll`        | GET  | Get All courses        |             |
+| `/api/v1/courses/:id_user`      | GET  | Get course by User Id  |             |
+| `/api/v1/courses/getUserCourse` | GET  | Get student coach      |             |

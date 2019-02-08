@@ -133,9 +133,22 @@ exports.getUserCourse = async (req, res) => {
     const id_user = parseInt(req.params.id_user)
     const userCourse = await UserCourse.findAll({
       where : {id_user : id_user},
-      include : [{model: Course, include: [User]}, User]
+      include : [{model: Course, include: [User]}]
     })
     res.status(200).json({ userCourse });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
+exports.getUserCoach = async (req, res) => {
+  try {
+    const id = parseInt(req.params.id)
+    const coachStudent = await Course.findAll({
+      where: {id_coach: id},
+      include: [{model: UserCourse, include: [User]}]
+    })
+    res.status(200).json({coachStudent});
   } catch (error) {
     res.status(500).json(error);
   }

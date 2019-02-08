@@ -8,5 +8,6 @@ router.post("/join", isAuthenticated, CourseController.joinCourse);
 router.put("/accept", isAuthenticated, CourseController.acceptCourse);
 router.get("/getCourse", CourseController.getAllCourse);
 router.get("/getCourse/:id_user", CourseController.getUserCourse)
+router.get("/getUserCourse/:id" , CourseController.getUserCoach)
 
 module.exports = router;

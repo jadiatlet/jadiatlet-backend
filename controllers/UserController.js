@@ -37,7 +37,15 @@ exports.getUser = async (req, res) => {
 
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findAll({
+      where: { id: req.params.id },
+      include: [
+        {
+          model: Course,
+          include: [UserCourse]
+        }
+      ]
+    });
     res.status(200).json({ user });
   } catch (error) {
     res.status(500).json(error);
